@@ -1,5 +1,3 @@
-require('dotenv').config();
-const apiKey = process.env.API_KEY; // Replace with your actual API key
 const cityInput = document.getElementById('city-input');
 const getWeatherBtn = document.getElementById('get-weather-btn');
 const weatherIcon = document.getElementById('weather-icon');
@@ -8,7 +6,7 @@ const locationElement = document.getElementById('location');
 const condition = document.getElementById('condition');
 const windSpeed = document.getElementById('wind-speed');
 
-const Key=process.env.apiKey;
+const Key = "9ceeaddff2bf41f99f125023242111";
 getWeatherBtn.addEventListener('click', async () => {
   const cityName = cityInput.value.trim();
   if (!cityName) {
@@ -16,11 +14,12 @@ getWeatherBtn.addEventListener('click', async () => {
     return;
   }
 
-  const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${cityName}&aqi=yes`;
-console.log(apiUrl)
+  const apiUrl = `http://api.weatherapi.com/v1/current.json?key=${Key}&q=${cityName}&aqi=yes`;
   try {
     const response = await fetch(apiUrl);
     const weatherData = await response.json();
+    console.log(weatherData);
+
 
     if (weatherData.error) {
       alert(weatherData.error.message);
@@ -30,17 +29,12 @@ console.log(apiUrl)
     const location = weatherData.location.name;
     const temperatureC = weatherData.current.temp_c;
     const weatherCondition = weatherData.current.condition.text;
-    const windSpeed = weatherData.current.wind_kph;
     const iconCode = weatherData.current.condition.icon.split('/')[1].split('.')[0]; // Extract icon code
 
     locationElement.textContent = `Location: ${location}`;
     temperature.textContent = `${temperatureC}°C`;
     condition.textContent = `Condition: ${weatherCondition}`;
-    windSpeed.textContent = `Wind Speed: ${windSpeed} km/h`;
-
-    // Set weather icon based on icon code
-    weatherIcon.classList.add(`fa-${iconCode}`); 
-
+    weatherIcon.classList.add(`fa-${iconCode}`);
   } catch (error) {
     console.error(error);
     alert('Error fetching weather data');

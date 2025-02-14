@@ -6,7 +6,7 @@ const locationElement = document.getElementById('location');
 const condition = document.getElementById('condition');
 const windSpeed = document.getElementById('wind-speed');
 
-const Key = "9ceeaddff2bf41f99f125023242111";
+const Key = "";
 getWeatherBtn.addEventListener('click', async () => {
   const cityName = cityInput.value.trim();
   if (!cityName) {
